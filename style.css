@@ -1,0 +1,17 @@
+
+.container {
+	height: 200px;
+	width: 200px;
+	border: 1px solid blue;
+	display: inline-block;
+
+}
+
+.square {
+	display: inline-block;
+	
+	height: 90%;
+	width: 90%;	
+	margin: 5%;
+	background: #000000;
+}
