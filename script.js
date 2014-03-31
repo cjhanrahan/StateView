@@ -31,11 +31,11 @@ SV.Logic = {
 			return USStateData[this.StateIndex2][this.StatisticName2];
 		},
 
-		updateIndices: function() {
-			this.StateIndex1 = $('select.usstate').eq(0).val();
-			this.StatisticName1 = $('select.statistic').eq(0).val();
-			this.StateIndex2 = $('select.usstate').eq(1).val();
-			this.StatisticName2 = $('select.statistic').eq(1).val();
+		updateSelectedOptions: function() {
+			this.StateIndex1 = $('.usstate').eq(0).val();
+			this.StatisticName1 = $(	'.statistic').eq(0).val();
+			this.StateIndex2 = $('.usstate').eq(1).val();
+			this.StatisticName2 = $('.statistic').eq(1).val();
 		}
 }
 
@@ -53,13 +53,12 @@ SV.UserInterface = {
 		},
 		
 		populateMenus: function(){		
-			//add state names
+			//add US state names to option menu 1
 			for (var i=0; i<USStateData.length; i++) {
 				$('.usstate').append('<option value=' + i + '>' + USStateData[i].name + '</option>');
 			}
 			
-			//add statistic option
-			
+			// show the statistics available for each US state
 			var choices = Object.keys(USStateData[0]);
 			for (var j=1; j< choices.length - 1; j++){
 				$('.statistic').append('<option value=' + choices[j] + '>' + choices[j] + '</option>');
@@ -75,7 +74,7 @@ SV.UserInterface = {
 		
 		drawNumbers: function(){
 			var l = SV.Logic;
-			l.updateIndices();
+			l.updateSelectedOptions();
 			$('#data').text(l.getValue1() + ' ' + l.getValue2());
 			this.adjustBoxes();
 		},
@@ -88,15 +87,18 @@ SV.UserInterface = {
 			
 			//first box represents biggest number
 			if (ratio > 1) {
-				scalingFunc = $('.square').eq(1).buildScalingFunc(1 / ratio);
+				scalingFunc1 = $('.square').eq(0).buildScalingFunc(1);
+				scalingFunc2 = $('.square').eq(1).buildScalingFunc(1 / ratio);
 			}
 			//first box represents smaller number
 			else {
-				scalingFunc = $('.square').eq(0).buildScalingFunc(ratio);
+				scalingFunc1 = $('.square').eq(0).buildScalingFunc(ratio);
+				scalingFunc2 = $('.square').eq(1).buildScalingFunc(1);
 			}
 
 			//			this.resetSize(scalingFunc)
-			scalingFunc();
+			scalingFunc1();
+			scalingFunc2();
 		},		
 
 		resetSize: function(callback) {
