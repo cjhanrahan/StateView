@@ -10,34 +10,38 @@ SV.MainInterface = {
 		SV.UserInterface.drawInterface();
 	},
 
-
 }
 
 
 SV.Logic = {
 		
-		StateIndex1: -1,
+		StateName1: -1,
 		StatisticName1: -1,
-		StateIndex2: -1,
+		StateName2: -1,
 		StatisticName2: -1,
 		originalHeight: -1,
 		originalWidth: -1,
 		
 		getValue1: function() {
-			return USStateData[this.StateIndex1][this.StatisticName1];
+			return USStateData[this.StateName1][this.StatisticName1];
 		},
 		
 		getValue2: function() {
-			return USStateData[this.StateIndex2][this.StatisticName2];
+			return USStateData[this.StateName2][this.StatisticName2];
 		},
 
+		getState1: function() {
+		 
+		},
+		
 		updateSelectedOptions: function() {
-			this.StateIndex1 = $('.usstate').eq(0).val();
-			this.StatisticName1 = $(	'.statistic').eq(0).val();
-			this.StateIndex2 = $('.usstate').eq(1).val();
+			this.StateName1 = $('.usstate').eq(0).val();
+			this.StatisticName1 = $('.statistic').eq(0).val();
+			this.StateName2 = $('.usstate').eq(1).val();
 			this.StatisticName2 = $('.statistic').eq(1).val();
 		}
 }
+
 
 SV.UserInterface = {
 		
@@ -59,8 +63,8 @@ SV.UserInterface = {
 			}
 			
 			// show the statistics available for each US state
-			var choices = Object.keys(USStateData[0]);
-			for (var j=1; j< choices.length - 1; j++){
+			var choices = ['population', 'square-miles'];
+			for (var j=0; j< choices.length; j++){
 				$('.statistic').append('<option value=' + choices[j] + '>' + choices[j] + '</option>');
 			}
 		},
@@ -137,7 +141,6 @@ $.fn.buildScalingFunc = function(scale) {
 	};	
 	
 	return function() {
-		console.log(newCSS);
 		element.animate(newCSS);
 	};
 };	
